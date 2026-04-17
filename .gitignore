@@ -1,0 +1,54 @@
+# ── Claude Code 런타임 상태 (로컬 전용, 커밋 금지) ──────────────────────────
+
+# 세션/프로젝트/태스크 런타임 데이터
+claude/sessions/
+claude/projects/
+claude/tasks/
+
+# 개인 메모리 (로컬 AI 메모리)
+claude/memory/
+
+# 캐시 및 임시 파일
+claude/cache/
+claude/backups/
+claude/history.jsonl
+claude/file-history/
+claude/session-env/
+claude/shell-snapshots/
+claude/telemetry/
+claude/ide/
+
+# 플랜 및 런타임 상태
+claude/plans/
+claude/.omc/
+claude/.omc-config.json
+claude/.omc-version.json
+
+# CLAUDE.md 백업 파일
+claude/CLAUDE.md.backup.*
+
+# ── 인증 / 자격증명 (절대 커밋 금지) ─────────────────────────────────────────
+
+claude/.claude.json
+claude/.credentials.json
+
+# ── 플러그인 런타임 파일 ─────────────────────────────────────────────────────
+# 아래 파일들은 Dockerfile의 `claude plugin marketplace add` 명령으로 빌드 시 재생성됨.
+# known_marketplaces.json: 컨테이너 내부 절대경로(/home/vscode/.claude/plugins/...) 포함
+# blocklist.json: fetchedAt 타임스탬프로 인해 매 fetch마다 변경됨
+
+claude/plugins/marketplaces/
+claude/plugins/oh-my-claudecode/
+claude/plugins/known_marketplaces.json
+claude/plugins/blocklist.json
+
+# MCP 인증 캐시
+claude/mcp-needs-auth-cache.json
+
+# ── OMC 런타임 상태 ──────────────────────────────────────────────────────────
+.omc/
+
+# ── 시스템 파일 ──────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
