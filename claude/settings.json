@@ -75,5 +75,16 @@
     "type": "command",
     "command": "node ~/.claude/hud/omc-hud.mjs"
   },
-  "skipDangerousModePermissionPrompt": true
+  "extraKnownMarketplaces": {
+    "omc": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/Yeachan-Heo/oh-my-claudecode.git"
+      }
+    }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "enabledPlugins": {
+    "oh-my-claudecode@omc": true
+  }
 }

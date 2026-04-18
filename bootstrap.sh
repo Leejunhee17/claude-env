@@ -77,33 +77,6 @@ else
     ok "devc 설치 완료"
 fi
 
-# ── 6. CLAUDE_CODE_OAUTH_TOKEN 설정 ─────────────────────────────────────────
-step "CLAUDE_CODE_OAUTH_TOKEN 설정"
-
-if [ -n "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]; then
-    ok "환경변수 이미 설정됨 → 건너뜀"
-else
-    if grep -q 'CLAUDE_CODE_OAUTH_TOKEN' "$SHELL_RC" 2>/dev/null; then
-        ok "$SHELL_RC 에 이미 등록됨 → 건너뜀"
-    else
-        echo ""
-        echo "  Anthropic OAuth 토큰을 입력하세요."
-        echo "  (없으면 Enter로 건너뜀 → 나중에 'claude auth login' 실행)"
-        echo -n "  CLAUDE_CODE_OAUTH_TOKEN: "
-        read -r TOKEN
-
-        if [ -n "$TOKEN" ]; then
-            echo "" >> "$SHELL_RC"
-            echo "# Claude Code OAuth token" >> "$SHELL_RC"
-            echo "export CLAUDE_CODE_OAUTH_TOKEN=\"${TOKEN}\"" >> "$SHELL_RC"
-            export CLAUDE_CODE_OAUTH_TOKEN="$TOKEN"
-            ok "토큰 저장 완료 ($SHELL_RC)"
-        else
-            warn "건너뜀 → devcontainer 첫 실행 후 'claude auth login' 실행"
-        fi
-    fi
-fi
-
 # ── 완료 ─────────────────────────────────────────────────────────────────────
 echo ""
 echo "══════════════════════════════════════════════════════"

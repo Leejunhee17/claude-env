@@ -74,26 +74,17 @@ USER vscode
 # Set PATH early so claude and other user-installed binaries are available
 ENV PATH="/home/vscode/.local/bin:$PATH"
 
-# Install Claude Code natively with marketplace plugins
-RUN curl -fsSL https://claude.ai/install.sh | bash && \
-  claude plugin marketplace add anthropics/skills && \
-  claude plugin marketplace add trailofbits/skills && \
-  claude plugin marketplace add trailofbits/skills-curated
+# Install Claude Code — native binary installer (no npm/Node required for Claude itself)
+# Node.js is provided via the devcontainer feature for OMC hook scripts (.mjs files).
+# OMC (oh-my-claudecode) is NOT installed here; it is provided at runtime via the
+# ~/.claude bind mount, which points to the claude/ directory in this git repo.
+RUN curl -fsSL https://claude.ai/install.sh | bash
 
 # Install Python 3.13 via uv (fast binary download, not source compilation)
 RUN uv python install 3.13 --default
 
 # Install ast-grep (AST-based code search)
 RUN uv tool install ast-grep-cli
-
-# Install fnm (Fast Node Manager) and Node 22
-ARG NODE_VERSION=22
-ENV FNM_DIR="/home/vscode/.fnm"
-RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$FNM_DIR" --skip-shell && \
-  export PATH="$FNM_DIR:$PATH" && \
-  eval "$(fnm env)" && \
-  fnm install ${NODE_VERSION} && \
-  fnm default ${NODE_VERSION}
 
 # Install Oh My Zsh
 # renovate: datasource=github-releases depName=deluan/zsh-in-docker
