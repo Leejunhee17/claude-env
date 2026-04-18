@@ -33,14 +33,10 @@ claude/.claude.json
 claude/.credentials.json
 
 # ── 플러그인 런타임 파일 ─────────────────────────────────────────────────────
-# 아래 파일들은 Dockerfile의 `claude plugin marketplace add` 명령으로 빌드 시 재생성됨.
-# known_marketplaces.json: 컨테이너 내부 절대경로(/home/vscode/.claude/plugins/...) 포함
-# blocklist.json: fetchedAt 타임스탬프로 인해 매 fetch마다 변경됨
+# settings.json의 enabledPlugins + extraKnownMarketplaces로 첫 실행 시 자동 설치됨.
+# 캐시/설치 기록은 컨테이너 내부 절대경로를 포함하므로 커밋 금지.
 
-claude/plugins/marketplaces/
-claude/plugins/oh-my-claudecode/
-claude/plugins/known_marketplaces.json
-claude/plugins/blocklist.json
+claude/plugins/
 
 # MCP 인증 캐시
 claude/mcp-needs-auth-cache.json
