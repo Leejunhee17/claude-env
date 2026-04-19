@@ -2,7 +2,8 @@
 set -euo pipefail
 
 # ── 설정 ────────────────────────────────────────────────────────────────────
-REPO="git@github.com:Leejunhee17/claude-env.git"
+REPO_SSH="git@github.com:Leejunhee17/claude-env.git"
+REPO_HTTPS="https://github.com/Leejunhee17/claude-env.git"
 REPO_DIR="${HOME}/workspace/claude-env"
 CLAUDE_SOURCE="${REPO_DIR}/claude"
 CLAUDE_TARGET="${HOME}/.claude"
@@ -24,8 +25,13 @@ if [ -d "${REPO_DIR}/.git" ]; then
     git -C "$REPO_DIR" pull --ff-only
 else
     mkdir -p "$REPO_DIR"
-    git clone "$REPO" "$REPO_DIR"
-    ok "Clone 완료"
+    if git clone "$REPO_SSH" "$REPO_DIR" 2>/dev/null; then
+        ok "Clone 완료 (SSH)"
+    else
+        warn "SSH 실패 → HTTPS로 재시도"
+        git clone "$REPO_HTTPS" "$REPO_DIR"
+        ok "Clone 완료 (HTTPS)"
+    fi
 fi
 
 # ── 2. claude 폴더 확인 ──────────────────────────────────────────────────────
@@ -87,7 +93,6 @@ echo "  ~/.claude : $CLAUDE_TARGET → $CLAUDE_SOURCE"
 echo "  shell rc  : $SHELL_RC"
 echo ""
 echo "  다음 단계:"
-echo "    source $SHELL_RC"
 echo "    cd $REPO_DIR"
 echo "    code .            # VS Code에서 devcontainer 열기"
 echo "    # 또는: devc up && devc shell"
@@ -102,3 +107,5 @@ echo "    git add claude/"
 echo "    git commit -m \"chore: update claude settings\""
 echo "    git push"
 echo "══════════════════════════════════════════════════════"
+
+exec "$SHELL" -l

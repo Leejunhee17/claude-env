@@ -231,6 +231,14 @@ def main():
     setup_global_gitignore()
 
     print("[post_install] Configuration complete!", file=sys.stderr)
+    print(
+        "\n"
+        "┌─────────────────────────────────────────┐\n"
+        "│  Setup complete! Next step:             │\n"
+        "│    claude auth login                    │\n"
+        "└─────────────────────────────────────────┘",
+        file=sys.stderr,
+    )
 
 
 if __name__ == "__main__":
